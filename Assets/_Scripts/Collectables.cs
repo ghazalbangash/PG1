@@ -8,7 +8,6 @@ public class Collectables : MonoBehaviour
     public int score;
 
     private void OnCollisionEnter(Collision other) {
-        Debug.Log(other.gameObject.tag);
         if(other.gameObject.tag == "Player")
         {
             //ScoreManager.scoremanager.UpdateScore(score);

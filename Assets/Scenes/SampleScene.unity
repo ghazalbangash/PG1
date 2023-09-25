@@ -225,7 +225,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -516,11 +516,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9b6f45fdbb53ac49b29f3015133b0fd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.7
+      value: 2.44
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9b6f45fdbb53ac49b29f3015133b0fd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.51
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9b6f45fdbb53ac49b29f3015133b0fd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -595,10 +595,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 1
+  m_Height: 5
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 2.1, z: 0}
 --- !u!54 &1881074811
 Rigidbody:
   m_ObjectHideFlags: 0

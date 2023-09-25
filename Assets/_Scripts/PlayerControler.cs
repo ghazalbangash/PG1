@@ -32,8 +32,8 @@ public class PlayerControler : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
 
 
-        distanceToGround = GetComponent<Collider>().bounds.extents.y;
-        Debug.Log(distanceToGround);
+
+
 
         // cameraRotation = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);
         // Cursor.lockState = CursorLockMode.Locked;
@@ -53,34 +53,59 @@ public class PlayerControler : MonoBehaviour
         //cameraRotation = new Vector3(cameraRotation.x + rotate.y, cameraRotation.y + rotate.x, cameraRotation.z);
         //transform.eulerAngles = new Vector3(transform.rotation.x, cameraRotation.y, transform.rotation.z);
 
-        transform.Translate(Vector3.forward * move.y * Time.deltaTime * walkSpeed, Space.Self);
-        transform.Translate(Vector3.right * move.x * Time.deltaTime * walkSpeed, Space.Self);
+        transform.Translate(Vector3.forward * (move.y * Time.deltaTime * walkSpeed), Space.Self);
+        transform.Translate(Vector3.right * (move.x * Time.deltaTime * walkSpeed), Space.Self);
 
-        isGrounded = Physics.Raycast(transform.position, -Vector3.up, distanceToGround);
-        Debug.Log(isGrounded);
+        isGrounded = Physics.Raycast(transform.position, -Vector3.up,GetComponent<Collider>().bounds.extents.y);
+        //Debug.Log(isGrounded);
     }
 
     private void OnDisable() {
         inputAction.Player.Disable();
     }
 
-    private void Jump()
+    public void Jump()
     {
         if(isGrounded)
         {
             rb.velocity = new Vector3(rb.velocity.x, jump, rb.velocity.z);
         }
     }
-
-    // private void Shoot()
-    // {
-    //     Rigidbody rbBullet = Instantiate(projectile, projectilePos.position, Quaternion.identity).GetComponent<Rigidbody>();
-    //     rbBullet.AddForce(Vector3.forward * 32f, ForceMode.Impulse);
-    // }
-    private void OnCollisionEnter(Collision other) {
-        Debug.Log("player"+other.gameObject.tag);
- 
+    public void Move(Vector2 direction)
+    {
+        move = direction;
     }
+
+    // public void SetLook(Vector2 direction)
+    // {
+    //     rotate = direction;
+    //     //This is considered advanced rotation, but prevents gimbal lock...
+    //     transform.rotation *= Quaternion.AngleAxis(direction.x * sensitivity, Vector3.up); // HORIZONTAL
+    //     camFollowTarget.rotation *= Quaternion.AngleAxis(direction.y * -sensitivity, Vector3.right); // UP DOWN
+
+    //     Vector3 angles = camFollowTarget.eulerAngles;
+    //     float anglesX = angles.x;
+    //     if (anglesX > 180 && anglesX < 360-viewAngleClamp)
+    //     {
+    //         anglesX =  360-viewAngleClamp;
+    //     }
+    //     else if (anglesX < 180 && anglesX > viewAngleClamp)
+    //     {
+    //         anglesX = viewAngleClamp;
+    //     }
+    //     //transform.rotation = Quaternion.Euler(0, angles.y, 0);
+    //     camFollowTarget.localEulerAngles = new Vector3(anglesX, 0, 0);
+    // }
+
+
+    // private void OnCollisionEnter(Collision other) {
+    //     Debug.Log("player"+other.gameObject.tag);
+    //     isGrounded = true;
+ 
+    // }
+    // private void OnCollisionExit(Collision other) {
+    //     isGrounded = false;
+    // }
 
 }
 
