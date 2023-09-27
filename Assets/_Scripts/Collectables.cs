@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Collectables : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public int score;
-
     private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.tag == "Player")
-        {
-            //ScoreManager.scoremanager.UpdateScore(score);
-            Debug.Log("Collided!");
+        if(other.gameObject.tag == "Player"){
+            Debug.Log("Collided");
             Destroy(gameObject);
         }
+        
     }
 }
