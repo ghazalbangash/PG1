@@ -17,7 +17,16 @@
                 {
                     "name": "Jump",
                     "type": "Button",
-                    "id": "56f94fc0-af32-456d-b00c-4a829936c32b",
+                    "id": "9beb38f8-1bf7-470a-b501-0767fb7fe88f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "shoot",
+                    "type": "Button",
+                    "id": "4efd3212-e1a8-4e0b-962a-e2ca617fca2e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -82,12 +91,23 @@
                 },
                 {
                     "name": "",
-                    "id": "69c6c2d5-ff34-4189-8d31-b61736364fc8",
+                    "id": "cc34417a-ee1f-4e6b-b85a-fb5d735ffbcb",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "83377850-192c-469f-a7af-a0259e92537c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
