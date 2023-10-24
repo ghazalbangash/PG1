@@ -11,19 +11,22 @@ public class ProjectileObject : MonoBehaviour
     private float curSpeed;
     private float curDamage;
     private Vector3 curDirection;
-    private Rigidbody2D Owner;
+    private Rigidbody Owner;
     //[SerializeField] private ProjectileSO stats;    [field: SerializeField] public float knockback { get; private set; }
     public float contactDamage ;
     public float baseSpeed; 
     public float lifeTime;
 
 
-    public void Initialize(float chargepercent, Rigidbody2D Owner)
+    public void Initialize(float chargepercent, Rigidbody Owner)
     {
         this.Owner = Owner;
         curDirection = transform.right;
         curSpeed = baseSpeed* chargepercent;
         curDamage = contactDamage * chargepercent;
+        
+        GetComponent<Rigidbody>().AddForce(transform.forward * curSpeed, ForceMode.Impulse);
+        
         Destroy(gameObject, lifeTime * chargepercent);
     }
     // private void OnTriggerEnter2D(Collider2D collision)
@@ -41,8 +44,8 @@ public class ProjectileObject : MonoBehaviour
     // }
 
     // Update is called once per frame
-    void Update()
-    {
-        transform.position += Time.deltaTime * curSpeed * curDirection;
-    }
+    //void Update()
+    //{
+    //    transform.position += Time.deltaTime * curSpeed * curDirection;
+    //}
 }

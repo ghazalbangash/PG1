@@ -8,7 +8,7 @@ public abstract class Weapon : MonoBehaviour
     private Coroutine timerCoroutine;
     protected float currentchargetime;
     private bool atkTimerdone = true;
-    protected Rigidbody2D owner;
+    protected Rigidbody owner;
 
 
     [field: SerializeField] public float contactDamage { get; private set; }
@@ -74,10 +74,10 @@ public abstract class Weapon : MonoBehaviour
     }
     private void OnTransformParentChanged()
     {
-        owner = transform.root.GetComponent<Rigidbody2D>();
+        owner = transform.root.GetComponent<Rigidbody>();
     }
     private void Awake()
     {
-        owner = transform.root.GetComponent<Rigidbody2D>();
+        owner = transform.root.GetComponent<Rigidbody>();
     }
 }

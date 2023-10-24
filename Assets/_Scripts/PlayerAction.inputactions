@@ -25,12 +25,12 @@
                 },
                 {
                     "name": "shoot",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "422239e5-c8da-4300-ad67-807ec8576da6",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [

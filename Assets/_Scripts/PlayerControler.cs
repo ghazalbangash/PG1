@@ -9,9 +9,11 @@ public class PlayerControler : MonoBehaviour
     Vector2 rotate;
 
     Rigidbody rb;
-    public GameObject projectile;
-    public Transform projectilePos;
+    //public GameObject projectile;
+    //public Transform projectilePos;
 
+    [SerializeField]private Weapon weapon;
+    private bool isAttacking;
 
 
     private float distanceToGround;
@@ -63,10 +65,14 @@ public class PlayerControler : MonoBehaviour
     }
 
 
-    public  void shoot(){
-        Rigidbody rbBullet = Instantiate(projectile,projectilePos.position,Quaternion.identity).GetComponent<Rigidbody>();
-        rbBullet.AddForce(Vector3.forward*32f,ForceMode.Impulse);
-
+    public  void shoot()
+    {
+        isAttacking = !isAttacking;
+        if(isAttacking) weapon.StartAttack();
+        else weapon.EndAttack();
+        
+        // Rigidbody rbBullet = Instantiate(projectile,projectilePos.position,Quaternion.identity).GetComponent<Rigidbody>();
+        //rbBullet.AddForce(Vector3.forward*32f,ForceMode.Impulse);
     }
 
     // public void SetLook(Vector2 direction)
