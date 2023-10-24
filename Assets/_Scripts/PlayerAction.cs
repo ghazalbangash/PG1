@@ -39,7 +39,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""9beb38f8-1bf7-470a-b501-0767fb7fe88f"",
+                    ""id"": ""56f94fc0-af32-456d-b00c-4a829936c32b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -48,7 +48,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""shoot"",
                     ""type"": ""Button"",
-                    ""id"": ""4efd3212-e1a8-4e0b-962a-e2ca617fca2e"",
+                    ""id"": ""422239e5-c8da-4300-ad67-807ec8576da6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -113,7 +113,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cc34417a-ee1f-4e6b-b85a-fb5d735ffbcb"",
+                    ""id"": ""69c6c2d5-ff34-4189-8d31-b61736364fc8"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -124,7 +124,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""83377850-192c-469f-a7af-a0259e92537c"",
+                    ""id"": ""0053445c-5119-473f-8231-ae5dd6ef4ac8"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",

@@ -4,22 +4,32 @@ using UnityEngine;
 
 public class Collectables : MonoBehaviour
 {
-    // Start is called before the first frame update
-<<<<<<< Updated upstream
+    
+    public string nameCollectable;
     public int score;
+    public int restoreHP;
 
-    private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.tag == "Player")
-        {
-            //ScoreManager.scoremanager.UpdateScore(score);
-            Debug.Log("Collided!");
-=======
-    private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.tag == "Player"){
-            Debug.Log("collided");
->>>>>>> Stashed changes
-            Destroy(gameObject);
-
-        }
+    public Collectables(string name, int scorevalue, int restoreHPvalue)
+    {
+        this.nameCollectable = name;
+        this.score = scorevalue;
+        this.restoreHP = restoreHPvalue;
     }
+
+    public void UpdateScore()
+    {
+        ScoreManager.scoremanager.UpdateScore(score);
+    }
+
+    public void UpdateHealth()
+    {
+        
+    } 
+    //     private void OnCollisionEnter(Collision other) {
+    //     if(other.gameObject.tag == "Player"){
+    //         Debug.Log("Collided");
+    //         Destroy(gameObject);
+    //     }
+        
+    // }
 }
