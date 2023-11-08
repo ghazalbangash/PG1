@@ -47,8 +47,13 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""shoot"",
+<<<<<<< Updated upstream
                     ""type"": ""Button"",
                     ""id"": ""4efd3212-e1a8-4e0b-962a-e2ca617fca2e"",
+=======
+                    ""type"": ""PassThrough"",
+                    ""id"": ""422239e5-c8da-4300-ad67-807ec8576da6"",
+>>>>>>> Stashed changes
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
