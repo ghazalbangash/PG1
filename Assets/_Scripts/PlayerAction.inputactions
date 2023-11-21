@@ -17,7 +17,7 @@
                 {
                     "name": "Jump",
                     "type": "Button",
-                    "id": "9beb38f8-1bf7-470a-b501-0767fb7fe88f",
+                    "id": "56f94fc0-af32-456d-b00c-4a829936c32b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -25,8 +25,17 @@
                 },
                 {
                     "name": "shoot",
-                    "type": "Button",
-                    "id": "4efd3212-e1a8-4e0b-962a-e2ca617fca2e",
+                    "type": "PassThrough",
+                    "id": "422239e5-c8da-4300-ad67-807ec8576da6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MovingTo",
+                    "type": "PassThrough",
+                    "id": "751f97f0-529b-41a3-83df-156776423aef",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -91,7 +100,7 @@
                 },
                 {
                     "name": "",
-                    "id": "cc34417a-ee1f-4e6b-b85a-fb5d735ffbcb",
+                    "id": "69c6c2d5-ff34-4189-8d31-b61736364fc8",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
@@ -102,12 +111,51 @@
                 },
                 {
                     "name": "",
-                    "id": "83377850-192c-469f-a7af-a0259e92537c",
+                    "id": "0053445c-5119-473f-8231-ae5dd6ef4ac8",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e02e644a-bfee-4d98-9cbf-aeaba1ec759e",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovingTo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Enemy",
+            "id": "84bf14f5-db92-4d54-af02-38ea099e06e6",
+            "actions": [
+                {
+                    "name": "MoveTo",
+                    "type": "PassThrough",
+                    "id": "3735cd2f-bcfb-4d55-9f35-29c587a8970c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c2bcd774-7537-4782-a692-be8a732b8914",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveTo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

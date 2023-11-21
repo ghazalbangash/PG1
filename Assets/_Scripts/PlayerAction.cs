@@ -39,7 +39,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""9beb38f8-1bf7-470a-b501-0767fb7fe88f"",
+                    ""id"": ""56f94fc0-af32-456d-b00c-4a829936c32b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -47,8 +47,17 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""shoot"",
-                    ""type"": ""Button"",
-                    ""id"": ""4efd3212-e1a8-4e0b-962a-e2ca617fca2e"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""422239e5-c8da-4300-ad67-807ec8576da6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MovingTo"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""751f97f0-529b-41a3-83df-156776423aef"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -113,7 +122,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cc34417a-ee1f-4e6b-b85a-fb5d735ffbcb"",
+                    ""id"": ""69c6c2d5-ff34-4189-8d31-b61736364fc8"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -124,12 +133,51 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""83377850-192c-469f-a7af-a0259e92537c"",
+                    ""id"": ""0053445c-5119-473f-8231-ae5dd6ef4ac8"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e02e644a-bfee-4d98-9cbf-aeaba1ec759e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovingTo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Enemy"",
+            ""id"": ""84bf14f5-db92-4d54-af02-38ea099e06e6"",
+            ""actions"": [
+                {
+                    ""name"": ""MoveTo"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""3735cd2f-bcfb-4d55-9f35-29c587a8970c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c2bcd774-7537-4782-a692-be8a732b8914"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveTo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -143,6 +191,10 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_shoot = m_Player.FindAction("shoot", throwIfNotFound: true);
+        m_Player_MovingTo = m_Player.FindAction("MovingTo", throwIfNotFound: true);
+        // Enemy
+        m_Enemy = asset.FindActionMap("Enemy", throwIfNotFound: true);
+        m_Enemy_MoveTo = m_Enemy.FindAction("MoveTo", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -205,6 +257,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_shoot;
+    private readonly InputAction m_Player_MovingTo;
     public struct PlayerActions
     {
         private @PlayerAction m_Wrapper;
@@ -212,6 +265,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @shoot => m_Wrapper.m_Player_shoot;
+        public InputAction @MovingTo => m_Wrapper.m_Player_MovingTo;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -230,6 +284,9 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 @shoot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @shoot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
                 @shoot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShoot;
+                @MovingTo.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovingTo;
+                @MovingTo.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovingTo;
+                @MovingTo.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovingTo;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -243,14 +300,55 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 @shoot.started += instance.OnShoot;
                 @shoot.performed += instance.OnShoot;
                 @shoot.canceled += instance.OnShoot;
+                @MovingTo.started += instance.OnMovingTo;
+                @MovingTo.performed += instance.OnMovingTo;
+                @MovingTo.canceled += instance.OnMovingTo;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Enemy
+    private readonly InputActionMap m_Enemy;
+    private IEnemyActions m_EnemyActionsCallbackInterface;
+    private readonly InputAction m_Enemy_MoveTo;
+    public struct EnemyActions
+    {
+        private @PlayerAction m_Wrapper;
+        public EnemyActions(@PlayerAction wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MoveTo => m_Wrapper.m_Enemy_MoveTo;
+        public InputActionMap Get() { return m_Wrapper.m_Enemy; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(EnemyActions set) { return set.Get(); }
+        public void SetCallbacks(IEnemyActions instance)
+        {
+            if (m_Wrapper.m_EnemyActionsCallbackInterface != null)
+            {
+                @MoveTo.started -= m_Wrapper.m_EnemyActionsCallbackInterface.OnMoveTo;
+                @MoveTo.performed -= m_Wrapper.m_EnemyActionsCallbackInterface.OnMoveTo;
+                @MoveTo.canceled -= m_Wrapper.m_EnemyActionsCallbackInterface.OnMoveTo;
+            }
+            m_Wrapper.m_EnemyActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @MoveTo.started += instance.OnMoveTo;
+                @MoveTo.performed += instance.OnMoveTo;
+                @MoveTo.canceled += instance.OnMoveTo;
+            }
+        }
+    }
+    public EnemyActions @Enemy => new EnemyActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnMovingTo(InputAction.CallbackContext context);
+    }
+    public interface IEnemyActions
+    {
+        void OnMoveTo(InputAction.CallbackContext context);
     }
 }

@@ -1,70 +1,78 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public static class Inputs
 {
-
+    // Start is called before the first frame update
     private static PlayerAction _actions;
     private static PlayerControler _owner;
 
-    //Allows to not rebind all the functions, just the player.
-    //Given the context we're doing this. this function is actually bad, but sometimes it's useful.
-    public static void BindNewPlayer(PlayerControler player)
-    {
+    public static void BindNewPlayer(PlayerControler player){
         _owner = player;
-<<<<<<< Updated upstream
-=======
 
     }
-    public static void Init(PlayerControler player){
+
+
+
+
+    
+    private static Camera _camera;
+
+    private static float _cameraLerpPercent = 0.5f;
+    private static readonly Vector3 CamPointA = new (0,20,-15);
+    private static readonly Vector3 CamPointB = new (0,2,-2);
+
+    public static void SetCommander(PlayerControler newTarget)
+    {
+        _owner = newTarget;
+        if(_camera) _camera.transform.SetParent(_owner.transform, true);
+    }
+
+    public static void SetControlledCamera(Camera newCam)
+    {
+        _camera = newCam;
+        _camera.transform.SetParent(_owner.transform, true);
+        //HandleCameraLerp(0);
+    }
+    public static void Init(PlayerControler player,Camera cam = null){
+
+
+    SetCommander(player);
+    SetControlledCamera(cam?cam:Camera.main);
     _actions = new PlayerAction();
     BindNewPlayer(player);
 
     _actions.Player.Move.performed += ctx => _owner.Move(ctx.ReadValue<Vector2>());
     _actions.Player.Jump.performed += ctx => _owner.Jump();
-    
-    _actions.Player.shoot.performed += ctx => _owner.Shoot();
-
-
+    _actions.Player.MovingTo.performed += ctx => _owner.MoveTo(CamToWorldRay());
+    //_actions.Player.shoot.performed += ctx => _owner.shoot();
 
     PlayMode();
->>>>>>> Stashed changes
     }
 
+    // public static void InitEnemy(EnemyControler enemy,Camera cam = null){
+    // _actions = new PlayerAction();
+    // BindEnemy(enemy);
+    // SetCommander(enemy);
+    // SetControlledCamera(cam?cam:Camera.main);
 
-    public static void Init(PlayerControler player)
-    {
-        _actions = new PlayerAction();
+    // Debug.Log("Enemy here ");
 
-        //Unnecessary, but neater.
-        BindNewPlayer(player);
-        
-        // BIND ACTIONS   
-        //_actions.Player.Look.performed += ctx => _owner.SetLook(ctx.ReadValue<Vector2>());
-        _actions.Player.Move.performed += ctx => _owner.Move(ctx.ReadValue<Vector2>());
-        _actions.Player.Jump.performed += ctx => _owner.Jump();
-       // _actions.Player.Shoot.performed += ctx => _owner.TryShoot();
-        
-            
-        // ENABLE DEFAULT ACTION MAPS    
-            
-        //Permanent actions are useful for reading information that should always exist. 
-        //This can be handy for if you want to track the mouse position at all times.
-        //_actions.Permanent.Enable();
-            
-        //Set to playmode by default
-        PlayMode();
-    }
+    // _actions.Enemy.MoveTo.performed += ctx => _enemy.MoveTo(CamToWorldRay());
 
-    // public static void UIMode()
-    // {
-    //     _actions.Player.Disable();
-    //     _actions.UI.Enable();
+
+    // PlayMode();
     // }
 
-    public static void PlayMode()
-    {
+    public static void PlayMode(){
         _actions.Player.Enable();
-        //_actions.UI.Disable();
     }
 
+
+    private static Ray CamToWorldRay()
+    {
+        return _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+    }
 }
